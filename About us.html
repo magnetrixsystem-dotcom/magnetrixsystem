@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us – MAGNETRIX SYSTEMS PVT. LTD.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #690d1a; --dark: #333133; --light: #f8fafc; --border: #e2e8f0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+
+        /* TOP BAR */
+        .top-bar { background: var(--dark); color: #fff; padding: 8px 16px; font-size: 12px; text-align: center; }
+
+        /* HEADER */
+        header { background: var(--primary); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(0,0,0,.25); }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; min-height: 68px; }
+        .logo-img { height: 56px; display: block; }
+        .nav-list { display: flex; list-style: none; }
+        .nav-list > li { position: relative; }
+        .nav-list > li > a { display: block; color: #fff; text-decoration: none; font-weight: 500; font-size: 13.5px; letter-spacing: .4px; padding: 20px 16px; transition: background .25s, color .25s; white-space: nowrap; }
+        .nav-list > li > a:hover { background: #fff; color: var(--primary); }
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 200px; box-shadow: 0 6px 20px rgba(0,0,0,.13); border-top: 3px solid var(--primary); z-index: 300; }
+        .nav-list > li:hover .dropdown { display: block; }
+        .dropdown a { display: block; color: var(--dark); text-decoration: none; padding: 11px 18px; font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--border); transition: background .2s, padding-left .2s; }
+        .dropdown a:last-child { border-bottom: none; }
+        .dropdown a:hover { background: #fdf0f1; color: var(--primary); padding-left: 24px; }
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all .3s; }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px,5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px,-5px); }
+        .mobile-nav { display: none; flex-direction: column; background: #7a0f1e; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { display: block; color: #fff; text-decoration: none; padding: 13px 24px; font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.1); transition: background .2s; }
+        .mobile-nav a:hover { background: rgba(255,255,255,.1); }
+        .mobile-nav a.sub-link { padding-left: 40px; font-size: 13px; background: rgba(0,0,0,.15); }
+        .toggle-row { display: flex; justify-content: space-between; align-items: center; }
+        .toggle-row .arr { font-size: 11px; transition: transform .3s; }
+        .toggle-row.expanded .arr { transform: rotate(180deg); }
+        .mobile-sub { display: none; }
+        .mobile-sub.open { display: block; }
+
+        /* HERO BANNER */
+        .hero { height: 420px; background: url('images/Matrix Home Page -03.png') center/cover no-repeat; position: relative; display: flex; align-items: center; justify-content: center; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.48); }
+        .hero-txt { position: relative; z-index: 2; text-align: center; color: #fff; padding: 20px; }
+        .hero-txt h1 { font-size: clamp(1.6rem, 4.5vw, 2.8rem); font-weight: 700; text-shadow: 2px 2px 6px rgba(0,0,0,.5); }
+
+        /* BREADCRUMB */
+        .breadcrumb { background: #f5f5f5; padding: 12px 20px; border-bottom: 1px solid var(--border); font-size: 13px; }
+        .breadcrumb-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 8px; align-items: center; }
+        .breadcrumb a { color: var(--primary); text-decoration: none; }
+        .breadcrumb a:hover { text-decoration: underline; }
+
+        /* MAIN */
+        .main { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
+
+        .sec-title { text-align: center; margin-bottom: 14px; }
+        .sec-title h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; position: relative; display: inline-block; }
+        .sec-title h2::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 80px; height: 3px; background: var(--primary); border-radius: 2px; }
+        .sec-sub { text-align: center; font-size: 15px; color: #666; font-weight: 300; margin-bottom: 52px; margin-top: 18px; }
+
+        /* Company intro */
+        .intro-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 52px; align-items: start; margin-bottom: 70px; }
+        .intro-img { background: #fff; border-radius: 16px; box-shadow: 0 16px 50px rgba(237,27,52,.2); padding: 36px; display: flex; align-items: center; justify-content: center; min-height: 380px; }
+        .intro-img img { max-width: 100%; max-height: 280px; object-fit: contain; }
+        .intro-txt h3 { font-size: clamp(1rem, 2vw, 1.25rem); color: var(--primary); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+        .intro-txt p { font-size: 14.5px; line-height: 1.85; color: #555; margin-bottom: 18px; }
+
+        /* Stats */
+        .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+        .stat-card { background: #fff; padding: 36px 24px; border-radius: 14px; text-align: center; box-shadow: 0 8px 32px rgba(0,0,0,.09); border-top: 4px solid var(--primary); transition: transform .3s, box-shadow .3s; }
+        .stat-card:hover { transform: translateY(-8px); box-shadow: 0 16px 48px rgba(105,13,26,.15); }
+        .stat-num { font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; color: var(--primary); margin-bottom: 8px; line-height: 1; }
+        .stat-lbl { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+        .stat-desc { font-size: 13px; color: #666; line-height: 1.5; }
+
+        /* FOOTER */
+        footer { background: var(--dark); color: rgba(255,255,255,.75); padding: 24px 20px; text-align: center; font-size: 13px; margin-top: 0; }
+        footer p { margin: 4px 0; }
+        footer a { color: #e07280; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* Reveal */
+        .rev { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+        .rev.vis { opacity: 1; transform: none; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-list { display: none; }
+            .hamburger { display: flex; }
+            .hero { height: 280px; }
+            .intro-grid { grid-template-columns: 1fr; gap: 28px; }
+            .intro-img { min-height: unset; padding: 24px; }
+            .stats { grid-template-columns: 1fr; gap: 18px; }
+        }
+
+        @media (max-width: 500px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .stats .stat-card:last-child { grid-column: 1 / -1; max-width: 280px; margin: 0 auto; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">Welcome to MAGNETRIX SYSTEMS PVT. LTD.</div>
+
+<header>
+    <div class="nav-wrap">
+        <a href="index.html"><img src="images/Magnetrix Logo - 011 (1).png" alt="Magnetrix" class="logo-img"></a>
+        <ul class="nav-list">
+            <li><a href="index.html">HOME</a></li>
+            <li>
+                <a href="About us.html">ABOUT US ▾</a>
+                <div class="dropdown">
+                    <a href="About us.html">Company Profile</a>
+                    <a href="aboutus file/Production Facilities.html">Production Facilities</a>
+                    <a href="aboutus file/testing facilities.html">Testing Facilities</a>
+                    <a href="https://www.mecwinindia.com" target="_blank">Partnership</a>
+                </div>
+            </li>
+            <li><a href="product.html">PRODUCTS</a></li>
+            <li><a href="index.html#contact">CONTACT US</a></li>
+        </ul>
+        <button class="hamburger" id="ham" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">HOME</a>
+        <a href="#" class="toggle-row" id="aboutToggle">ABOUT US <span class="arr">▾</span></a>
+        <div class="mobile-sub" id="aboutSub">
+            <a href="About us.html" class="sub-link">Company Profile</a>
+            <a href="aboutus file/Production Facilities.html" class="sub-link">Production Facilities</a>
+            <a href="aboutus file/testing facilities.html" class="sub-link">Testing Facilities</a>
+            <a href="https://www.mecwinindia.com" class="sub-link" target="_blank">Partnership</a>
+        </div>
+        <a href="product.html">PRODUCTS</a>
+        <a href="index.html#contact">CONTACT US</a>
+    </nav>
+</header>
+
+<div class="hero"><div class="hero-txt"><h1>ABOUT US</h1></div></div>
+
+<div class="breadcrumb">
+    <div class="breadcrumb-inner">
+        <a href="index.html">Home</a> <span>›</span> <span>About Us</span>
+    </div>
+</div>
+
+<main class="main">
+    <div class="sec-title rev"><h2>About Us</h2></div>
+    <p class="sec-sub rev">Specializing in advanced manufacturing and industrial solutions</p>
+
+    <div class="intro-grid">
+        <div class="intro-img rev">
+            <img src="images/Magnetrix Logo.png" alt="Magnetrix Systems Logo">
+        </div>
+        <div class="intro-txt rev">
+            <h3>MAGNETRIX SYSTEMS PVT. LTD.</h3>
+            <p>MAGNETRIX SYSTEMS PVT. LTD. was founded in 2017 with a vision to revolutionize the manufacturing industry. The company covers an area of more than 1,92,000 square meters and a construction area of about 2,00,000 square meters. We specialize in the production and processing of advanced industrial components and solutions.</p>
+            <p>Our company now has the most advanced production line and technology in the industry. Our products are widely used in aviation, aerospace, automotive, electronics, electro-acoustic, motor, mechanical instruments, medical technology, and other fields. With the rapid development of science and technology, we continue to expand our scope of application.</p>
+            <p>The company takes "specificity, pragmatism, cooperation, innovation" as the concept, customer-centered approach, with quality and reputation to win the trust of customers. We adhere to technology-oriented development, ensuring product quality excellence, service perfection, and constantly opening up new markets worldwide.</p>
+        </div>
+    </div>
+
+    <div class="stats">
+        <div class="stat-card rev">
+            <div class="stat-num">2017</div>
+            <div class="stat-lbl">Year Established</div>
+            <div class="stat-desc">Founded in 2017, now 9+ years of excellence in manufacturing</div>
+        </div>
+        <div class="stat-card rev">
+            <div class="stat-num">6000</div>
+            <div class="stat-lbl">Tons Production</div>
+            <div class="stat-desc">Annual production capacity of 6000 tons</div>
+        </div>
+        <div class="stat-card rev">
+            <div class="stat-num">192K</div>
+            <div class="stat-lbl">Square Meters</div>
+            <div class="stat-desc">Total facility coverage of 1,92,000 sq. meters</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p>© 2017 Magnetrix Systems PVT. LTD. All rights reserved.</p>
+    <p><a href="http://www.magnetrixsystems.com" target="_blank">www.magnetrixsystems.com</a></p>
+</footer>
+
+<script>
+    const ham = document.getElementById('ham');
+    const mobileNav = document.getElementById('mobileNav');
+    ham.addEventListener('click', () => { ham.classList.toggle('open'); mobileNav.classList.toggle('open'); });
+    const aboutToggle = document.getElementById('aboutToggle');
+    const aboutSub = document.getElementById('aboutSub');
+    aboutToggle.addEventListener('click', e => { e.preventDefault(); aboutToggle.classList.toggle('expanded'); aboutSub.classList.toggle('open'); });
+    mobileNav.querySelectorAll('a:not(#aboutToggle)').forEach(a => a.addEventListener('click', () => { ham.classList.remove('open'); mobileNav.classList.remove('open'); }));
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }), { threshold: 0.1 });
+    document.querySelectorAll('.rev').forEach(el => ro.observe(el));
+</script>
+</body>
+</html>

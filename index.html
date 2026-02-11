@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGNETRIX SYSTEMS PVT. LTD.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { --primary: #690d1a; --dark: #333133; --light: #f8fafc; --border: #e2e8f0; }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Montserrat', sans-serif; color: var(--dark); line-height: 1.6; overflow-x: hidden; }
+
+        /* TOP BAR */
+        .top-bar { background: var(--dark); color: #fff; padding: 8px 16px; font-size: 12px; text-align: center; }
+
+        /* HEADER */
+        header { background: var(--primary); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 12px rgba(0,0,0,0.25); }
+        .nav-wrap { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; min-height: 68px; }
+        .logo-img { height: 56px; display: block; }
+
+        /* Desktop nav */
+        .nav-list { display: flex; list-style: none; }
+        .nav-list > li { position: relative; }
+        .nav-list > li > a { display: block; color: #fff; text-decoration: none; font-weight: 500; font-size: 13.5px; letter-spacing: 0.4px; padding: 20px 16px; transition: background .25s, color .25s; white-space: nowrap; }
+        .nav-list > li > a:hover { background: #fff; color: var(--primary); }
+        .dropdown { display: none; position: absolute; top: 100%; left: 0; background: #fff; min-width: 200px; box-shadow: 0 6px 20px rgba(0,0,0,.13); border-top: 3px solid var(--primary); z-index: 300; }
+        .nav-list > li:hover .dropdown { display: block; }
+        .dropdown a { display: block; color: var(--dark); text-decoration: none; padding: 11px 18px; font-size: 13px; font-weight: 500; border-bottom: 1px solid var(--border); transition: background .2s, padding-left .2s; }
+        .dropdown a:last-child { border-bottom: none; }
+        .dropdown a:hover { background: #fdf0f1; color: var(--primary); padding-left: 24px; }
+
+        /* Hamburger */
+        .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+        .hamburger span { display: block; width: 24px; height: 2.5px; background: #fff; border-radius: 2px; transition: all .3s; }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        /* Mobile nav */
+        .mobile-nav { display: none; flex-direction: column; background: #7a0f1e; }
+        .mobile-nav.open { display: flex; }
+        .mobile-nav a { display: block; color: #fff; text-decoration: none; padding: 13px 24px; font-size: 14px; font-weight: 500; border-bottom: 1px solid rgba(255,255,255,.1); transition: background .2s; }
+        .mobile-nav a:hover { background: rgba(255,255,255,.1); }
+        .mobile-nav a.sub-link { padding-left: 40px; font-size: 13px; background: rgba(0,0,0,.15); }
+        .mobile-nav a.sub-link:hover { background: rgba(0,0,0,.25); }
+        .mobile-nav .toggle-row { display: flex; justify-content: space-between; align-items: center; }
+        .mobile-nav .toggle-row .arr { font-size: 11px; transition: transform .3s; }
+        .mobile-nav .toggle-row.expanded .arr { transform: rotate(180deg); }
+        .mobile-sub { display: none; }
+        .mobile-sub.open { display: block; }
+
+        /* HERO */
+        .hero { position: relative; height: 580px; overflow: hidden; }
+        .slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1.2s ease; }
+        .slide.active { opacity: 1; }
+        .slide img.bg { width: 100%; height: 100%; object-fit: cover; }
+        .slide .overlay { position: absolute; inset: 0; background: rgba(0,0,0,.46); }
+        .slide .content { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; padding: 20px 16px; }
+        .slide .content h1 { font-size: clamp(1.5rem, 4.5vw, 3rem); font-weight: 700; margin-bottom: 14px; text-shadow: 2px 2px 6px rgba(0,0,0,.5); line-height: 1.2; }
+        .slide .content p { font-size: clamp(.85rem, 2vw, 1.15rem); font-weight: 300; max-width: 580px; line-height: 1.7; text-shadow: 1px 1px 4px rgba(0,0,0,.5); }
+        .slider-dots { position: absolute; bottom: 16px; left: 50%; transform: translateX(-50%); display: flex; gap: 8px; z-index: 10; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.45); cursor: pointer; border: none; transition: background .3s; }
+        .dot.active { background: #fff; }
+
+        /* SHARED SECTION TITLE */
+        .sec-title { text-align: center; margin-bottom: 48px; }
+        .sec-label { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); font-weight: 600; margin-bottom: 8px; }
+        .sec-title h2 { font-size: clamp(1.5rem, 3.5vw, 2.2rem); font-weight: 700; color: var(--dark); }
+
+        /* PRODUCTS */
+        .products { padding: 70px 20px; background: var(--light); }
+        .prod-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 22px; }
+        .prod-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,.07); border-top: 4px solid var(--primary); transition: transform .3s, box-shadow .3s; }
+        .prod-card:hover { transform: translateY(-7px); box-shadow: 0 10px 28px rgba(105,13,26,.14); }
+        .prod-card img { width: 100%; height: 180px; object-fit: cover; display: block; transition: transform .4s; }
+        .prod-card:hover img { transform: scale(1.05); }
+        .prod-card h3 { padding: 12px 14px; font-size: 13px; font-weight: 600; text-align: center; }
+
+        /* ABOUT */
+        .about { padding: 70px 20px; background: #f8f9fa; }
+        .about-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 50px; align-items: center; }
+        .about-img { background: #fff; border-radius: 16px; box-shadow: 0 16px 48px rgba(0,0,0,.1); padding: 36px; display: flex; align-items: center; justify-content: center; min-height: 340px; }
+        .about-img img { max-width: 100%; max-height: 260px; object-fit: contain; }
+        .about-txt .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); font-weight: 600; margin-bottom: 12px; }
+        .about-txt h2 { font-size: clamp(1.3rem, 2.8vw, 1.9rem); font-weight: 700; margin-bottom: 18px; line-height: 1.3; }
+        .about-txt p { font-size: 14px; line-height: 1.85; color: #5a6070; margin-bottom: 14px; }
+
+        /* GLOBAL */
+        .global { padding: 70px 20px; background: var(--dark); text-align: center; }
+        .global .sec-title h2 { color: #fff; }
+        .global .sec-label { color: rgba(255,255,255,.6); }
+        .country-cloud { max-width: 860px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; padding-top: 10px; }
+        .ctag { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); padding: 8px 20px; border-radius: 40px; font-size: 13px; font-weight: 500; color: #fff; transition: background .2s; }
+        .ctag:hover { background: rgba(255,255,255,.16); }
+
+        /* CONTACT */
+        .contact { padding: 70px 20px; background: var(--light); }
+        .contact-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; }
+        .ci .eyebrow { font-size: 11px; text-transform: uppercase; letter-spacing: 3px; color: var(--primary); font-weight: 600; margin-bottom: 12px; }
+        .ci h2 { font-size: clamp(1.3rem, 2.8vw, 1.9rem); font-weight: 700; margin-bottom: 26px; }
+        .crow { display: flex; gap: 12px; margin-bottom: 16px; font-size: 14px; line-height: 1.6; }
+        .crow .lbl { font-weight: 600; min-width: 65px; }
+        .crow a { color: var(--primary); text-decoration: none; }
+        .crow a:hover { text-decoration: underline; }
+        .map-box { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.1); height: 360px; }
+        .map-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* FOOTER */
+        footer { background: var(--dark); color: rgba(255,255,255,.7); padding: 24px 20px; text-align: center; font-size: 13px; }
+        footer p { margin: 4px 0; }
+        footer a { color: #e07280; text-decoration: none; }
+        footer a:hover { text-decoration: underline; }
+
+        /* REVEAL ANIMATION */
+        .rev { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
+        .rev.vis { opacity: 1; transform: none; }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .nav-list { display: none; }
+            .hamburger { display: flex; }
+            .about-inner { grid-template-columns: 1fr; gap: 28px; }
+            .about-img { min-height: unset; padding: 24px; }
+            .contact-inner { grid-template-columns: 1fr; gap: 28px; }
+            .map-box { height: 260px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero { height: 380px; }
+            .prod-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .prod-card img { height: 130px; }
+            .prod-card h3 { font-size: 12px; padding: 9px 10px; }
+        }
+
+        @media (max-width: 380px) {
+            .hero { height: 300px; }
+            .prod-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">Welcome to MAGNETRIX SYSTEMS PVT. LTD.</div>
+
+<header>
+    <div class="nav-wrap">
+        <a href="index.html"><img src="images/Magnetrix Logo - 011 (1).png" alt="Magnetrix Systems" class="logo-img"></a>
+
+        <ul class="nav-list">
+            <li><a href="index.html">HOME</a></li>
+            <li>
+                <a href="About us.html">ABOUT US ▾</a>
+                <div class="dropdown">
+                    <a href="About us.html">Company Profile</a>
+                    <a href="aboutus file/Production Facilities.html">Production Facilities</a>
+                    <a href="aboutus file/testing facilities.html">Testing Facilities</a>
+                    <a href="https://www.mecwinindia.com" target="_blank">Partnership</a>
+                </div>
+            </li>
+            <li><a href="product.html">PRODUCTS</a></li>
+            <li><a href="#contact">CONTACT US</a></li>
+        </ul>
+
+        <button class="hamburger" id="ham" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+
+    <nav class="mobile-nav" id="mobileNav">
+        <a href="index.html">HOME</a>
+        <a href="#" class="toggle-row" id="aboutToggle">ABOUT US <span class="arr">▾</span></a>
+        <div class="mobile-sub" id="aboutSub">
+            <a href="About us.html" class="sub-link">Company Profile</a>
+            <a href="aboutus file/Production Facilities.html" class="sub-link">Production Facilities</a>
+            <a href="aboutus file/testing facilities.html" class="sub-link">Testing Facilities</a>
+            <a href="https://www.mecwinindia.com" class="sub-link" target="_blank">Partnership</a>
+        </div>
+        <a href="product.html">PRODUCTS</a>
+        <a href="#contact" class="mob-close">CONTACT US</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="slide active">
+        <img src="images/Company Image.png" class="bg" alt="Magnetrix Facility">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>MAGNETRIX SYSTEMS</h1>
+            <p>Specializing in the production of high-performance rare earth permanent magnet NdFeB series products</p>
+        </div>
+    </div>
+    <div class="slide">
+        <img src="images/Matrix Home Page -03.png" class="bg" alt="Operations">
+        <div class="overlay"></div>
+        <div class="content">
+            <h1>9 YEARS OF EXCELLENCE</h1>
+            <p>Trusted by industries worldwide — aviation, automotive, medical technology and beyond</p>
+        </div>
+    </div>
+    <div class="slider-dots">
+        <button class="dot active" data-i="0"></button>
+        <button class="dot" data-i="1"></button>
+    </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+    <div class="sec-title">
+        <div class="sec-label">PRODUCTS</div>
+        <h2>Product Center</h2>
+    </div>
+    <div class="prod-grid">
+        <div class="prod-card rev"><img src="images/image (4).jpg" alt="Magnets for Motors" loading="lazy"><h3>Magnets for Motors</h3></div>
+        <div class="prod-card rev"><img src="images/image (1).jpg" alt="Magnets for Acoustic" loading="lazy"><h3>Magnets for Acoustic</h3></div>
+        <div class="prod-card rev"><img src="images/MFM.jpg" alt="Magnets for Motors" loading="lazy"><h3>Magnets for Motors</h3></div>
+        <div class="prod-card rev"><img src="images/MFA1.jpg" alt="Magnets for Acoustic" loading="lazy"><h3>Magnets for Acoustic</h3></div>
+        <div class="prod-card rev"><img src="images/ASM.jpg" alt="Arc Shape Magnets" loading="lazy"><h3>Arc Shape Magnets</h3></div>
+        <div class="prod-card rev"><img src="images/MFA.jpg" alt="Magnets for Acoustic" loading="lazy"><h3>Magnets for Acoustic</h3></div>
+        <div class="prod-card rev"><img src="images/RP.jpg" alt="Ring Products" loading="lazy"><h3>Ring Products</h3></div>
+        <div class="prod-card rev"><img src="images/image.jpg" alt="Magnets for Motors" loading="lazy"><h3>Magnets for Motors</h3></div>
+        <div class="prod-card rev"><img src="images/small magnets.png" alt="Magnets for Acoustic" loading="lazy"><h3>Magnets for Acoustic</h3></div>
+        <div class="prod-card rev"><img src="images/ring(1).png" alt="Ring Products" loading="lazy"><h3>Ring Products</h3></div>
+
+    </div>
+    
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+    <div class="about-inner">
+        <div class="about-img rev">
+            <img src="images/Magnetrix Logo.png" alt="Magnetrix Logo">
+        </div>
+        <div class="about-txt rev">
+            <div class="eyebrow">ABOUT US</div>
+            <h2>Who We Are</h2>
+            <p>MAGNETRIX SYSTEMS PVT. LTD. was founded in 2017 with a vision to revolutionize the manufacturing industry. The company covers an area of more than 1,92,000 sq. meters with a construction area of 2,00,000 sq. meters.</p>
+            <p>Our company features the most advanced production lines and technology in the industry. Our products are widely used in aviation, aerospace, automotive, electronics, electro-acoustic, motor, medical technology, and many more fields.</p>
+            <p>We take "specificity, pragmatism, cooperation, innovation" as our concept — customer-centred, quality-driven, and constantly opening up new markets worldwide.</p>
+        </div>
+    </div>
+</section>
+
+<!-- GLOBAL PRESENCE -->
+<section class="global">
+    <div class="sec-title">
+        <div class="sec-label">WORLDWIDE</div>
+        <h2>Global Presence</h2>
+    </div>
+    <div class="country-cloud">
+        <span class="ctag">🇮🇳 India</span>
+        <span class="ctag">🇯🇵 Japan</span>
+        <span class="ctag">🇸🇬 Singapore</span>
+        <span class="ctag">🇮🇱 Israel</span>
+        <span class="ctag">🇰🇷 Korea</span>
+        <span class="ctag">🇫🇷 France</span>
+        <span class="ctag">🇩🇪 Germany</span>
+        <span class="ctag">🇬🇧 Britain</span>
+        <span class="ctag">🇪🇸 Spain</span>
+        <span class="ctag">🇺🇸 USA</span>
+        <span class="ctag">🇨🇦 Canada</span>
+        <span class="ctag">🇦🇺 Australia</span>
+        <span class="ctag">🇳🇿 New Zealand</span>
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+    <div class="sec-title">
+        <div class="sec-label">REACH OUT</div>
+        <h2>Contact Us</h2>
+    </div>
+    <div class="contact-inner">
+        <div class="ci rev">
+            <div class="eyebrow">GET IN TOUCH</div>
+            <h2>We'd Love to Hear From You</h2>
+            <div class="crow"><span class="lbl">📍 Address:</span><span>36, Sri Banashankari Complex, 2nd Floor, 11th Cross Rd, 1st Block, Rajajinagar, Bengaluru, Karnataka 560010</span></div>
+            <div class="crow"><span class="lbl">📞 Phone:</span><span><a href="tel:+919008426333">+91 90084 26333</a></span></div>
+            <div class="crow"><span class="lbl">✉ Email:</span><span><a href="mailto:info@magnetrixsystems.com">info@magnetrixsystems.com</a></span></div>
+            <div class="crow"><span class="lbl">🌐 Web:</span><span><a href="http://www.magnetrixsystems.com" target="_blank">www.magnetrixsystems.com</a></span></div>
+        </div>
+        <div class="map-box rev">
+            <a href="https://maps.google.com/?q=36+Sri+Banashankari+Complex+Rajajinagar+Bengaluru" target="_blank">
+                <img src="images/Gemini_Generated_Image_yvri5jyvri5jyvri (1).png" alt="Our Location">
+            </a>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>© 2017 Magnetrix Systems PVT. LTD. All rights reserved.</p>
+    <p><a href="http://www.magnetrixsystems.com" target="_blank">www.magnetrixsystems.com</a></p>
+</footer>
+
+<script>
+    // Hamburger
+    const ham = document.getElementById('ham');
+    const mobileNav = document.getElementById('mobileNav');
+    ham.addEventListener('click', () => { ham.classList.toggle('open'); mobileNav.classList.toggle('open'); });
+
+    // About dropdown in mobile
+    const aboutToggle = document.getElementById('aboutToggle');
+    const aboutSub = document.getElementById('aboutSub');
+    aboutToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        aboutToggle.classList.toggle('expanded');
+        aboutSub.classList.toggle('open');
+    });
+
+    // Close mobile nav on link click
+    mobileNav.querySelectorAll('a:not(#aboutToggle)').forEach(a => {
+        a.addEventListener('click', () => { ham.classList.remove('open'); mobileNav.classList.remove('open'); });
+    });
+
+    // Hero Slider
+    let cur = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+    function goTo(n) {
+        slides[cur].classList.remove('active'); dots[cur].classList.remove('active');
+        cur = n; slides[cur].classList.add('active'); dots[cur].classList.add('active');
+    }
+    dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.i)));
+    let timer = setInterval(() => goTo((cur + 1) % slides.length), 5000);
+
+    // Scroll reveal
+    const ro = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); }), { threshold: 0.1 });
+    document.querySelectorAll('.rev').forEach(el => ro.observe(el));
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', function(e) {
+            const t = document.querySelector(this.getAttribute('href'));
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+        });
+    });
+</script>
+</body>
+</html>
