@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Production Facilities - MAGNETRIX SYSTEMS PVT. LTD.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Arboria';
+            src: url('https://fonts.cdnfonts.com/s/19472/Arboria-Book.woff') format('woff');
+            font-weight: 400;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Arboria';
+            src: url('https://fonts.cdnfonts.com/s/19472/Arboria-Medium.woff') format('woff');
+            font-weight: 500;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Arboria';
+            src: url('https://fonts.cdnfonts.com/s/19472/Arboria-Bold.woff') format('woff');
+            font-weight: 700;
+            font-style: normal;
+        }
+        
+        @font-face {
+            font-family: 'Arboria';
+            src: url('https://fonts.cdnfonts.com/s/19472/Arboria-Black.woff') format('woff');
+            font-weight: 900;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #690d1a;
+            --secondary: #690d1a;
+            --accent: #690d1a;
+            --dark: #333133;
+            --light: #f8f9fa;
+            --text: #333133;
+            --border: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Arboria', 'Work Sans', sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            background: #690d1a;
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 40px;
+        }
+
+        .logo {
+            font-family: 'Arboria', sans-serif;
+            font-size: 28px;
+            font-weight: 900;
+            color: white;
+            text-decoration: none;
+            padding: 20px 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #fff, #690d1a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 0;
+        }
+
+        .nav-menu > li {
+            position: relative;
+        }
+
+        .nav-menu > li > a {
+            color: #fff; 
+            font-weight: 500;
+            text-decoration: none;
+            padding: 28px 24px;
+            display: block;
+            font-weight: 500;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+        }
+
+        .nav-menu > li > a:hover {
+            background: #ffffff;
+            color: #690d1a;
+        }
+
+        /* Dropdown */
+        .dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 240px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            border-top: 3px solid var(--accent);
+        }
+
+        .nav-menu > li:hover .dropdown {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown li a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 14px 24px;
+            display: block;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .dropdown li:last-child a {
+            border-bottom: none;
+        }
+
+        .dropdown li a:hover {
+            background: var(--primary);
+            color: white;
+            padding-left: 30px;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 76px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), 
+                        url('../images/production2.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(255,255,255,0.03) 2px,
+                rgba(255,255,255,0.03) 4px
+            );
+            animation: scan 8s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-family: 'Arboria', sans-serif;
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+        }
+
+        .hero p {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: 300;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            background: var(--light);
+            padding: 20px 0;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .breadcrumb-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--secondary);
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-family: 'Arboria', sans-serif;
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .intro-section {
+            margin-bottom: 80px;
+            text-align: center;
+        }
+
+        .intro-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #555;
+            max-width: 1000px;
+            margin: 0 auto 30px;
+        }
+
+        /* Equipment Grid */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .equipment-card {
+            background: white;
+            padding: 0;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+            overflow: hidden;
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(237, 27, 52, 0.2);
+        }
+
+        .equipment-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            background: var(--light);
+        }
+
+        .equipment-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .equipment-card:hover .equipment-image img {
+            transform: scale(1.05);
+        }
+
+        .equipment-title {
+            font-family: 'Arboria', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 30px 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .equipment-description {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin: 0 30px 15px;
+        }
+
+        .equipment-list {
+            margin: 0 30px 30px;
+            padding-left: 20px;
+        }
+
+        .equipment-list li {
+            font-size: 15px;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1818 100%);
+            color: white;
+            padding: 60px 0 0;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 60px;
+        }
+
+        .footer-section h4 {
+            font-family: 'Arboria', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .footer-section p {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            padding-left: 10px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .contact-item {
+            color: rgba(255,255,255,0.8);
+            line-height: 1.6;
+        }
+
+        .contact-item a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            background: rgba(0,0,0,0.2);
+            padding: 20px 0;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-bottom p {
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 76px;
+                flex-direction: column;
+                background: var(--dark);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: 0 10px 27px rgba(0,0,0,0.3);
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu > li {
+                width: 100%;
+            }
+
+            .dropdown {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                background: rgba(237, 27, 52, 0.1);
+                display: none;
+            }
+
+            .nav-menu > li:hover .dropdown {
+                display: block;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .equipment-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <img src="../images/Magnetrix Logo - 011 (1).png" alt="Logo" style="height:100px;">
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="../index.html">Home</a></li>
+                <li>
+                    <a href="../About us.html">About us</a>
+                    <ul class="dropdown">
+                        <li><a href="../About us.html">Company Profile</a></li>
+                        <li><a href="production facilities.html">Production Facilities</a></li>
+                        <li><a href="testing facilities.html">Testing Facilities</a></li>
+                        <li><a href="https://www.mecwinindia.com">Partnership</a></li>
+                    </ul>
+                </li>
+                <li><a href="../product.html">Product</a></li>
+                <li><a href="#footer">Contact Us</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle">☰</button>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Production Facilities</h1>
+            <p>Advanced Manufacturing Excellence</p>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-container">
+            <a href="../index.html">Home</a>
+            <span>›</span>
+            <a href="../About us.html">About Us</a>
+            <span>›</span>
+            <span>Production Facilities</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="section-title">
+            <h2>Production Facilities</h2>
+        </div>
+        <p class="section-subtitle">State-of-the-art manufacturing capabilities for permanent magnet production</p>
+
+        <div class="intro-section">
+            <p>MAGNETRIX SYSTEMS PVT. LTD. operates advanced production facilities equipped with cutting-edge technology for manufacturing high-quality permanent magnets. Our state-of-the-art manufacturing lines ensure precision, consistency, and superior quality in every product we deliver.</p>
+            <p>We have invested significantly in modern production equipment and automation systems to optimize efficiency and maintain the highest quality standards. Our facilities are designed to handle both large-scale production runs and specialized custom orders with equal excellence.</p>
+        </div>
+
+        <!-- Equipment Grid -->
+        <div class="equipment-grid">
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (5).jpg" alt="Advanced Mixing Systems">
+        </div>
+        <div class="equipment-title">Advanced Mixing Systems</div>
+        <div class="equipment-description">
+            High-precision alloy mixing and preparation systems ensuring optimal material composition and homogeneity.
+        </div>
+        <ul class="equipment-list">
+            <li>Automated raw material handling</li>
+            <li>Precision weighing and batching</li>
+            <li>Vacuum melting furnaces</li>
+            <li>Inert atmosphere protection</li>
+        </ul>
+    </div>
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (6).jpg" alt="Powder Processing">
+        </div>
+        <div class="equipment-title">Powder Processing</div>
+        <div class="equipment-description">
+            State-of-the-art powder metallurgy equipment for creating fine, uniform magnetic powders.
+        </div>
+        <ul class="equipment-list">
+            <li>Jet milling systems</li>
+            <li>Hydrogen decrepitation units</li>
+            <li>Particle size analyzers</li>
+            <li>Automated powder handling</li>
+        </ul>
+    </div>
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (7).jpg" alt="Pressing & Forming">
+        </div>
+        <div class="equipment-title">Pressing & Forming</div>
+        <div class="equipment-description">
+            Advanced isostatic and die pressing systems for precise magnet shaping and density control.
+        </div>
+        <ul class="equipment-list">
+            <li>Cold isostatic pressing (CIP)</li>
+            <li>Magnetic field orientation</li>
+            <li>Multi-axis pressing machines</li>
+            <li>Automated green body handling</li>
+        </ul>
+    </div>
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (8).jpg" alt="Sintering Furnaces">
+        </div>
+        <div class="equipment-title">Sintering Furnaces</div>
+        <div class="equipment-description">
+            High-temperature vacuum sintering furnaces with precise temperature and atmosphere control.
+        </div>
+        <ul class="equipment-list">
+            <li>Vacuum sintering chambers</li>
+            <li>Multi-zone temperature control</li>
+            <li>Programmable heating profiles</li>
+            <li>Rapid cooling systems</li>
+        </ul>
+    </div>
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (9).jpg" alt="Machining Center">
+        </div>
+        <div class="equipment-title">Precision Machining</div>
+        <div class="equipment-description">
+            CNC machining centers and grinding equipment for achieving exact dimensional specifications.
+        </div>
+        <ul class="equipment-list">
+            <li>5-axis CNC machines</li>
+            <li>Surface and cylindrical grinders</li>
+            <li>Wire EDM cutting systems</li>
+            <li>Automated inspection stations</li>
+        </ul>
+    </div>
+
+    <div class="equipment-card">
+        <div class="equipment-image">
+            <img src="../images/image (10).jpg" alt="Surface Treatment">
+        </div>
+        <div class="equipment-title">Surface Treatment</div>
+        <div class="equipment-description">
+            Comprehensive coating and surface protection systems for enhanced corrosion resistance.
+        </div>
+        <ul class="equipment-list">
+            <li>Electroplating lines</li>
+            <li>Epoxy coating systems</li>
+            <li>Passivation treatments</li>
+            <li>Quality inspection stations</li>
+        </ul>
+    </div>
+
+</div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>MAGNETRIX SYSTEMS PVT. LTD.</h4>
+                <p>Leading manufacturer of advanced industrial solutions. Committed to innovation, quality, and customer satisfaction since 1994.</p>
+                <p style="margin-top: 20px;">© 2017 MAGNETRIX SYSTEMS PVT. LTD. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul class="footer-links">
+                    <li><a href="../About us.html">Company Profile</a></li>
+                    <li><a href="testing facilities.html">Testing Facilities</a></li>
+                    <li><a href="../product.html">Products</a></li>
+                    <li><a href="#footer">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Info</h4>
+                <div class="contact-info">
+                    <div class="contact-item">36, Sri Banashankari Complex, 2nd Floor, 11th Cross Rd, 1st Block, Rajajinagar, Bengaluru, Karnataka 560010</div>
+                    <div class="contact-item">+91 90084 26333</div>
+                    <div class="contact-item"><a href="mailto:info@magnetrixsystems.com">info@magnetrixsystems.com</a></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Website Construction: Premium Web Solutions</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navMenu = document.getElementById('navMenu');
+
+        mobileToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('.nav-menu a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
